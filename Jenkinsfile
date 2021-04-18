@@ -3,7 +3,7 @@ pipeline {
 
     environment { 
 
-        registry = "bala4636/jenkins-pipeline" 
+        registry = "mypresentdocker/jenkins" 
 
         registryCredential = 'dockerhubid' 
 
