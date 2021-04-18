@@ -1,7 +1,9 @@
 pipeline { 
     agent {label 'Slave'}
-   
-
+   parameters {
+    imageTag(name: 'DOCKER_IMAGE', description: '',
+             image: 'assignment:1/assignment:1', filter: 'assignment.*', defaultTag: 'assignment:1')
+            
     environment { 
 
         registry = "mypresentdocker/jenkins" 
