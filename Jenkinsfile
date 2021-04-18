@@ -1,8 +1,6 @@
 pipeline { 
     agent {label 'Slave'}
-    parameters {
-  imageTag(name: 'DOCKER_IMAGE', image: 'assignment:1/assignment:1')
-}
+   
 
     environment { 
 
@@ -10,7 +8,8 @@ pipeline {
 
         registryCredential = 'dockerhubid' 
 
-        dockerImage = 'assignment:1' 
+        dockerImage = 'assignment:1'
+        ImageTag = 'assignment:1/assignment:1'
 
     }
 
@@ -47,7 +46,7 @@ pipeline {
                 script { 
 
                     docker.withRegistry( '', registryCredential ) { 
-
+                        dockerImage.tag('', ImageTag  )
                         dockerImage.push() 
 
                     }
