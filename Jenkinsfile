@@ -1,18 +1,17 @@
 pipeline { 
-    agent {label 'Slave'}
-   
+  agent {label 'Slave'}
     environment { 
 
         registry = "mypresentdocker/jenkins" 
 
         registryCredential = 'dockerhubid' 
 
-        dockerImage = ''
-        imageTag = 'assignment:1/assignment:1'
+        dockerImage = '' 
+        imagename = "nginx/tejaswvi"
 
     }
 
-    
+   
 
     stages { 
         stage('Cloning our Git') { 
@@ -31,7 +30,7 @@ pipeline {
 
                 script { 
 
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                    dockerImage = docker.build imagename
 
                 }
             } 
@@ -44,10 +43,10 @@ pipeline {
 
                 script { 
 
-                    docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.tag('', imageTag ) {
-                        dockerImage.push() 
-                        }
+                     docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push("$BUILD_NUMBER")
+                    dockerImage.push('assignment:1')
+
                     }
 
                 } 
