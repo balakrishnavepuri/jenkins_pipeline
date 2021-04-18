@@ -1,7 +1,7 @@
 pipeline { 
     agent {label 'Slave'}
     parameters {
-  imageTag(name: 'DOCKER_IMAGE', image: assignment:1/assignment:1')
+  imageTag(name: 'DOCKER_IMAGE', image: 'assignment:1/assignment:1')
 }
 
     environment { 
