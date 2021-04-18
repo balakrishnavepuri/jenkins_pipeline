@@ -1,16 +1,13 @@
 pipeline { 
     agent {label 'Slave'}
-   parameters {
-    imageTag(name: 'DOCKER_IMAGE', description: '',
-             image: 'assignment:1/assignment:1', filter: 'assignment.*', defaultTag: 'assignment:1')
-   } 
+   
     environment { 
 
         registry = "mypresentdocker/jenkins" 
 
         registryCredential = 'dockerhubid' 
 
-        dockerImage = 'assignment:1'
+        dockerImage = ''
         imageTag = 'assignment:1/assignment:1'
 
     }
@@ -48,7 +45,7 @@ pipeline {
                 script { 
 
                     docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.tag('', imageTag  )
+                        dockerImage.tag( )
                         dockerImage.push() 
 
                     }
