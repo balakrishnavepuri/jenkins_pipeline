@@ -45,9 +45,9 @@ pipeline {
                 script { 
 
                     docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.tag( )
+                        dockerImage.tag('', imageTag ) {
                         dockerImage.push() 
-
+                        }
                     }
 
                 } 
