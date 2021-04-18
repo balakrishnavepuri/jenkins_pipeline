@@ -44,7 +44,8 @@ pipeline {
                 script { 
 
                      docker.withRegistry( '', registryCredential ) {
-                    dockerImage.push('assignment:1')
+                     dockerImage.push("$BUILD_NUMBER")   
+                     dockerImage.push('assignment:1')
 
                     }
 
