@@ -1,5 +1,5 @@
 pipeline {
-  agent 
+  
   stages {
     stage('Cloning our Git') {
       steps {
@@ -22,3 +22,4 @@ pipeline {
 
     }
   }
+}
