@@ -9,7 +9,7 @@ pipeline {
     stage('Docker Build') {
 
       steps {
-        sh 'docker build -t nginx/tejaswini:assignment:1 . '
+        sh 'docker build -t nginx/tejaswini:assignment:1'
       }
     }
    stage('Docker Push') {
