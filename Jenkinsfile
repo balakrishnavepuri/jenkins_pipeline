@@ -1,70 +1,28 @@
-pipeline { 
-  agent {label 'Slave'}
-    environment { 
-
-        registry = "mypresentdocker/jenkins" 
-
-        registryCredential = 'dockerhubid' 
-
-        dockerImage = '' 
-        imagename = "nginx/tejaswvi"
-
+pipeline {
+  agent any
+  stages {
+    stage('Cloning our Git') {
+      agent {
+       
+      }
+      steps {
+        git 'https://github.com/balakrishnavepuri/jenkins_pipeline.git'
+      }
     }
-
-   
-
-    stages { 
-        stage('Cloning our Git') { 
-
-            steps { 
-
-                git 'https://github.com/balakrishnavepuri/jenkins_pipeline.git' 
-
-            }
-
-        } 
-
-        stage('Building our image') { 
-
-            steps { 
-
-                script { 
-
-                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-
-                }
-            } 
-
+    stage('Docker Build') {
+      agent any
+      steps {
+        sh 'docker build -t nginx/tejaswini:assignment:1 .'
+      }
+   stage('Docker Push') {
+      agent any
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerhubid', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          sh 'docker push shanem/spring-petclinic:latest'
         }
-
-        stage('Deploy our image') { 
-
-            steps { 
-
-                script { 
-
-                     docker.withRegistry( '', registryCredential ) {
-              
-                     dockerImage.push('assignment:1')
-
-                    }
-
-                } 
-
-            }
-
-        } 
-
-        stage('creating container') { 
-
-            steps { 
-
-                sh "docker run -d -p 8080:80 assignment:1" 
-
-            }
-
-        } 
-
+      }
     }
 
-}
+    }
+  }
