@@ -11,6 +11,7 @@ pipeline {
       steps {
         sh 'docker build -t nginx/tejaswini:assignment:1 .'
       }
+    }
    stage('Docker Push') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhubid', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
