@@ -1,25 +1,56 @@
 pipeline {
-  agent any
+  agent {label 'slave'}
+  environment {
+    imagename = "assignment:1"
+    registryCredential = 'dockerhubid'
+    dockerImage = ''
+  }
+  
   stages {
-    stage('Cloning our Git') {
+    stage('Cloning Git') {
+      agent {label 'slave'}
       steps {
         git 'https://github.com/balakrishnavepuri/jenkins_pipeline.git'
-      }
-    }
-    stage('Docker Build') {
 
-      steps {
-        sh 'docker build -t nginx/tejaswini:assignment-1 .'
       }
     }
-   stage('Docker Push') {
-      steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerhubid', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh 'docker push shanem/spring-petclinic:latest'
+    stage('Building image') {
+      agent {label 'slave'}
+      steps{
+        script {
+          dockerImage = docker.build imagename
         }
       }
     }
+    stage('Deploy Image') {
+      agent {label 'slave'}
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push("$BUILD_NUMBER")
+             dockerImage.push('lastest')
 
+          }
+        }
+      }
     }
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $imagename:$BUILD_NUMBER"
+         
+
+      }
+    }
+
+
+  stage('Creating Container') {
+      steps{
+        sh "docker run -it -d -p 80:8080 $imagename:latest"
+         
+
+      }
+    }
+
+
   }
+}
