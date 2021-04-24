@@ -20,6 +20,4 @@ EXPOSE 80
 # Copy required files.
 COPY index.html /usr/share/nginx/html/index.html
 
-# Set the default command to execute
-# when creating a new container
-CMD [ "service nginx start" ]
+
