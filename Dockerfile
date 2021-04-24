@@ -1,14 +1,10 @@
 # The line below states we will base our new image on the Latest Official Ubuntu 
-FROM ubuntu
+FROM ubuntu:18.04
  
 
 # Identify the maintainer of an image
 LABEL maintainer="tejaswimuvva22@gmail.com"
  
-# Install Nginx
-
-# Add application repository URL to the default sources
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ raring main universe" >> /etc/apt/sources.list
 
 # Update the repository
 RUN apt-get update && apt-get upgrade -y
