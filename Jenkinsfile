@@ -19,7 +19,7 @@ agent {label 'slave'}
         withCredentials([usernamePassword(credentialsId: 'dockerhubid', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           sh 'docker tag nginx/tejaswini:assignment-1 bala4636/nginx/tejaswini:assignment-1'
-          sh 'docker push nginx/tejaswini:assignment-1'
+          sh 'docker push bala4636/tejaswini:assignment-1'
         }
       }
     }
