@@ -11,7 +11,7 @@ LABEL maintainer="tejaswimuvva22@gmail.com"
 RUN echo "deb http://archive.ubuntu.com/ubuntu/ raring main universe" >> /etc/apt/sources.list
 
 # Update the repository
-RUN apt-get update
+RUN apt-get update -y
 
 # Install necessary tools
 RUN apt-get install -y nano wget dialog net-tools
