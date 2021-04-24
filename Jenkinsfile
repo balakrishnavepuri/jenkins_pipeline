@@ -20,6 +20,7 @@ agent {label 'slave'}
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           sh 'docker tag nginx/tejaswini:assignment-1 bala4636/assignment-1'
           sh 'docker push bala4636/assignment-1'
+          sh 'docker run -it -d -p 80:8080 assignment-1'
         }
       }
     }
