@@ -17,7 +17,7 @@ RUN apt-get install -y nginx
 # Copy required files.
 COPY index.html /var/www/html/
 # Expose ports
-EXPOSE 8080
+EXPOSE 80
 
 # Set the default command to execute
 # when creating a new container
